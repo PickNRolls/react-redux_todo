@@ -1,0 +1,11 @@
+.todo-add-button {
+  display: block;
+  font-size: 15px;
+  background: #3888ff;
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 7px 15px;
+  margin: 0 auto 20px;
+}

@@ -1,0 +1,44 @@
+.todo {
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.todo__title {
+  font-size: 22px;
+  font-weight: 700;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+}
+
+.todo__desc {
+  padding: 8px;
+  border: 1px solid #000;
+  border-top: none;
+}
+
+.todo__panel {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  top: 17px;
+}
+
+.todo__edit {
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.todo__remove {
+  color: #ff3636;
+  cursor: pointer;
+}
