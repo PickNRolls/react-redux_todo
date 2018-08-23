@@ -20,10 +20,17 @@ class App extends React.Component {
       popupIsVisible: false
     };
 
-    this.addTodo = this.addTodo.bind(this);
+    // Strategy
+
+    this.popupMode = this.addTodo;
+    this.handlePopupMode = this.handlePopupMode.bind(this);
     this.removeTodo = this.removeTodo.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.editTodo = this.editTodo.bind(this);
+    this.addTodo = this.addTodo.bind(this);
+
     this.openPopup = this.openPopup.bind(this);
-    this.closePopup = this.closePopup.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +47,41 @@ class App extends React.Component {
     this.unsub();
   }
 
-  addTodo(data) {
-    store.dispatch(todoActions.addTodo(data.title, data.desc));
-    this.closePopup();
+  handlePopupMode(id) {
+    if (id) {
+      this.editableTodoId = id;
+      this.popupMode = this.editTodo;
+    } else {
+      this.popupMode = this.addTodo;
+    }
+    
+    this.openPopup();
   }
 
   removeTodo(id) {
     store.dispatch(todoActions.removeTodo(id));
   }
+
+  // Form strategies
+
+  handleSubmit(data) {
+    this.popupMode(data);
+  }
+
+  addTodo(data) {
+    this.openPopup();
+    store.dispatch(todoActions.addTodo(data.title, data.desc));
+    this.closePopup();
+  }
+
+  editTodo(data) {
+    var {title, desc} = data;
+    var id = this.editableTodoId;
+    store.dispatch(todoActions.editTodo(id, title, desc));
+    this.closePopup();
+  }
+
+  // Popup methods
 
   closePopup() {
     this.setState({
@@ -66,7 +100,7 @@ class App extends React.Component {
     if (this.state.popupIsVisible) {
       popup = (
         <TodoPopup
-          onSubmit={this.addTodo}
+          onSubmit={this.handleSubmit}
           onDocumentClick={this.closePopup}
         />
       );
@@ -74,10 +108,11 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <TodoAddButton onClick={this.openPopup} />
+        <TodoAddButton onClick={()=>this.handlePopupMode(null, this.addTodo)} />
         <TodoList
           todos={this.state.todosById}
           onTodoRemove={this.removeTodo}
+          onTodoEdit={this.handlePopupMode}
         />
 
         { popup }

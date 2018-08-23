@@ -32,7 +32,7 @@ var todos = function (state = initialState, action) {
 
 
     case types.REMOVE_TODO:
-      var { id } = action;
+      id = action.id;
       var nextState = {};
 
       for (var prop in state) {
@@ -44,7 +44,20 @@ var todos = function (state = initialState, action) {
 
 
     case types.EDIT_TODO:
-      var { id } = action;
+      id = action.id;
+      var title = action.title;
+      var description = action.desc;
+
+      var changedTodo = Object.assign({}, state[id], {
+        title,
+        description
+      });
+
+      nextState = {};
+      nextState[id] = changedTodo;
+      nextState = Object.assign({}, state, nextState);
+
+      return nextState;
 
     default:
       return state;

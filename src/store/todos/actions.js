@@ -15,7 +15,15 @@ var removeTodo = function(id) {
   };
 };
 
+var editTodo = function(id, title, desc) {
+  return {
+    type: types.EDIT_TODO,
+    id, title, desc
+  };
+};
+
 export default {
   addTodo,
-  removeTodo
+  removeTodo,
+  editTodo
 };

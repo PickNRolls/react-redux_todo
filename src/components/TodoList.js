@@ -11,11 +11,11 @@ class TodoList extends React.Component {
       return (
         <li className="todo" key={id}>
           <div className="todo__panel">
-            {/*
-            <div className="todo__edit">
+            <div
+              className="todo__edit"
+              onClick={()=>this.props.onTodoEdit(id)}>
               Изменить
             </div>
-            */}
             <div 
               className="todo__remove"
               onClick={()=>this.props.onTodoRemove(id)}>✕</div>
